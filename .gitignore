@@ -1,0 +1,21 @@
+# Ignore Python virtual environments
+venv/
+__pycache__/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor folders
+.vscode/
+.idea/
+
+# Bytecode
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variable files
+.env
+# Ignore png
+static/assets/images/*.png

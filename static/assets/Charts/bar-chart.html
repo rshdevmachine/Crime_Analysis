@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ZingSoft Demo</title>
+
+
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
+  <style>
+    html,
+    body,
+    #myChart {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='myChart'>
+  </div>
+
+
+  <script>
+  s = "/static/assets/data/Processed_CrimesOnWomenData_FINAL.json";
+
+  function readTextFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function () {
+      if (rawFile.readyState === 4 && rawFile.status == "200") {
+        callback(rawFile.responseText);
+      }
+    }
+    rawFile.send(null);
+  }
+
+  readTextFile(s, function (text) {
+    var data = JSON.parse(text);
+    var retrievedObject = localStorage.getItem('testObject');
+    var obj = JSON.parse(retrievedObject);
+
+    var state_arr = obj.state;
+    var year_arr = obj.year;
+    var crime_types = obj.crime_type; // now it's an array of selected crime types
+
+    var arr = [];
+
+    for (let i = 0; i < state_arr.length; i++) {
+      for (let j = 0; j < year_arr.length; j++) {
+        let totalCrime = 0;
+
+        for (let k = 0; k < data.length; k++) {
+          if (data[k].YEAR == year_arr[j] && data[k].STATE == state_arr[i]) {
+            // Sum selected crimes
+            crime_types.forEach(crime => {
+              if (data[k][crime] !== undefined && !isNaN(data[k][crime])) {
+                totalCrime += data[k][crime];
+              }
+            });
+          }
+        }
+
+        arr.push(totalCrime);
+      }
+    }
+
+    var series_new = [];
+    let c = 0;
+    for (let i = 0; i < state_arr.length; i++) {
+      var element = {
+        values: arr.slice(c, c + year_arr.length),
+        text: state_arr[i] + " Total Crime"
+      };
+      series_new.push(element);
+      c += year_arr.length;
+    }
+
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myConfig = {
+      type: "bar",
+      scaleY: {
+        label: {
+          text: "TOTAL CRIME"
+        }
+      },
+      scaleX: {
+        label: {
+          text: "Year"
+        },
+        labels: year_arr
+      },
+      series: series_new
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+      height: "100%",
+      width: "100%"
+    });
+  });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ZingSoft Demo</title>
+
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+    }
+
+    #myChart {
+      height: 100%;
+      width: 100%;
+      min-height: 150px;
+    }
+
+    .zc-ref {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+    
+
+  <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a></div>
+   
+<script>
+"use strict";
+
+/* ------------------------------------------------------------------ *
+ * 1.  DATASET location & palette                                      *
+ * ------------------------------------------------------------------ */
+const DATA_URL = "/static/assets/data/Processed_CrimesOnWomenData_FINAL.json";
+const palette  = [
+  "#007790","#009872","#da534d","#ff9f00","#8b54ff",
+  "#00bcd4","#ff4081","#4caf50","#c2185b","#3f51b5"
+];
+
+/* ------------------------------------------------------------------ *
+ * 2.  Original XHR loader                                             *
+ * ------------------------------------------------------------------ */
+function readTextFile(file, callback) {
+  const req = new XMLHttpRequest();
+  req.overrideMimeType("application/json");
+  req.open("GET", file, true);
+  req.onreadystatechange = () => {
+    if (req.readyState === 4) {
+      if (req.status === 200) callback(req.responseText);
+      else console.error("❌ HTTP " + req.status + " loading " + file);
+    }
+  };
+  req.send(null);
+}
+
+/* ------------------------------------------------------------------ *
+ * 3.  Load dataset → build chart                                      *
+ * ------------------------------------------------------------------ */
+readTextFile(DATA_URL, text => {
+  let data;
+  try { data = JSON.parse(text); }
+  catch(e){ console.error("❌ Dataset JSON parse error:", e); return; }
+
+  /* ---- 3a.  Get user selection from localStorage ------------------ */
+  const stored = localStorage.getItem("testObject");
+  if (!stored) {
+    console.error("❌ localStorage ‘testObject’ not found.\n" +
+                  "Set it, e.g.:\n" +
+`localStorage.setItem('testObject', JSON.stringify({
+  state      : ["KERALA","BIHAR","PUNJAB"],
+  year       : [2001,2002,2003,2004,2005],
+  crime_type : ["RAPE","K&A","DV"] }));`);
+    return;
+  }
+
+  let obj;
+  try { obj = JSON.parse(stored); }
+  catch(e){ console.error("❌ Could not parse testObject:", e); return; }
+
+  const state_arr   = Array.isArray(obj.state)      ? obj.state      : [];
+  const year_arr    = Array.isArray(obj.year)       ? obj.year.map(Number) : [];
+  const crime_types = Array.isArray(obj.crime_type) ? obj.crime_type : [];
+
+  if (!state_arr.length || !year_arr.length || !crime_types.length) {
+    console.error("❌ ‘state’, ‘year’, or ‘crime_type’ array missing/empty in testObject.");
+    return;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * 4.  Build lookup: {STATE -> {YEAR -> totalSum}}                   *
+   * ---------------------------------------------------------------- */
+  const table = {};
+  state_arr.forEach(st => table[st] = {});
+
+  data.forEach(rec => {
+    const st = rec.STATE;
+    const yr = +rec.YEAR;
+    if (!table[st] || !year_arr.includes(yr)) return;      // not selected
+    if (!table[st][yr]) table[st][yr] = 0;
+
+    crime_types.forEach(type => {
+      const v = rec[type];
+      if (v != null && !isNaN(v)) table[st][yr] += +v;
+    });
+  });
+
+  /* ---------------------------------------------------------------- *
+   * 5.  Build ZingChart series                                        *
+   * ---------------------------------------------------------------- */
+  const series = [];
+  state_arr.forEach((st, idx) => {
+    const vals = year_arr.map(yr => {
+      const v = table[st][yr];
+      return (v === undefined || v === null || isNaN(v)) ? null : +v;
+    });
+    if (vals.some(v => v !== null)) {          // show only if there’s data
+      series.push({
+        text        : st,
+        values      : vals,
+        "line-color": palette[idx % palette.length],
+        marker      : {
+          "background-color": palette[idx % palette.length],
+          size              : 3
+        },
+        "legend-item": {
+          "background-color": palette[idx % palette.length],
+          borderRadius      : 5,
+          "font-color"      : "white"
+        },
+        "legend-marker": { visible:false }
+      });
+    }
+  });
+
+  /* ---------------------------------------------------------------- *
+   * 6.  ZingChart configuration                                       *
+   * ---------------------------------------------------------------- */
+  ZC.LICENSE=[
+    "569d52cefae586f634c54f86dc99e6a9",
+    "b55b025e438fa8a98e32482b5f768ff5"
+  ];
+
+  const myConfig = {
+    type   : "line",
+    title  : { text:"Crime Analytics – TOTAL CRIME", "font-size":"24px",
+               "adjust-layout":true },
+    plotarea:{ margin:"dynamic 45 60 dynamic" },
+
+    legend : {
+      layout:"float","background-color":"none","border-width":0,shadow:0,
+      align:"center","adjust-layout":true,"toggle-action":"remove",
+      item:{ padding:7, marginRight:17, cursor:"hand" }
+    },
+
+    "scale-x": { labels:year_arr, label:{text:"Year"}, item:{ "font-angle":-45 } },
+    "scale-y": {
+      label:{ text:"TOTAL CRIME" },
+      guide:{ "line-style":"dashed" },
+      "thousands-separator":","
+    },
+
+    plot : {
+      "tooltip-text":"%t: %v<br>%k",
+      "line-width":"2px",
+      marker:{ type:"circle", size:3 },
+      animation:{ effect:1, sequence:2, speed:100 }
+    },
+
+    series : series
+  };
+
+  /* ---------------------------------------------------------------- *
+   * 7.  Render                                                        *
+   * ---------------------------------------------------------------- */
+  zingchart.render({ id:"myChart", data:myConfig, height:"100%", width:"100%" });
+});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+[
+    {
+        "level_0": 1,
+        "STATE": "UTTAR PRADESH",
+        "TOTAL_CRIME": 529704
+    },
+    {
+        "level_0": 2,
+        "STATE": "MADHYA PRADESH",
+        "TOTAL_CRIME": 413184
+    },
+    {
+        "level_0": 3,
+        "STATE": "WEST BENGAL",
+        "TOTAL_CRIME": 409272
+    },
+    {
+        "level_0": 4,
+        "STATE": "ANDHRA PRADESH",
+        "TOTAL_CRIME": 391116
+    },
+    {
+        "level_0": 5,
+        "STATE": "RAJASTHAN",
+        "TOTAL_CRIME": 379236
+    },
+    {
+        "level_0": 6,
+        "STATE": "MAHARASHTRA",
+        "TOTAL_CRIME": 365640
+    },
+    {
+        "level_0": 7,
+        "STATE": "ASSAM",
+        "TOTAL_CRIME": 291972
+    },
+    {
+        "level_0": 8,
+        "STATE": "KERALA",
+        "TOTAL_CRIME": 202968
+    },
+    {
+        "level_0": 9,
+        "STATE": "ODISHA",
+        "TOTAL_CRIME": 194784
+    },
+    {
+        "level_0": 10,
+        "STATE": "BIHAR",
+        "TOTAL_CRIME": 189900
+    },
+    {
+        "level_0": 11,
+        "STATE": "KARNATAKA",
+        "TOTAL_CRIME": 161340
+    },
+    {
+        "level_0": 12,
+        "STATE": "GUJARAT",
+        "TOTAL_CRIME": 154368
+    },
+    {
+        "level_0": 13,
+        "STATE": "HARYANA",
+        "TOTAL_CRIME": 152472
+    },
+    {
+        "level_0": 14,
+        "STATE": "PUNJAB",
+        "TOTAL_CRIME": 135600
+    },
+    {
+        "level_0": 15,
+        "STATE": "TAMIL NADU",
+        "TOTAL_CRIME": 133896
+    },
+    {
+        "level_0": 16,
+        "STATE": "DELHI",
+        "TOTAL_CRIME": 104748
+    },
+    {
+        "level_0": 17,
+        "STATE": "TRIPURA",
+        "TOTAL_CRIME": 102216
+    },
+    {
+        "level_0": 18,
+        "STATE": "CHHATTISGARH",
+        "TOTAL_CRIME": 97656
+    },
+    {
+        "level_0": 19,
+        "STATE": "UTTARAKHAND",
+        "TOTAL_CRIME": 88008
+    },
+    {
+        "level_0": 20,
+        "STATE": "TELANGANA",
+        "TOTAL_CRIME": 87132
+    },
+    {
+        "level_0": 21,
+        "STATE": "JHARKHAND",
+        "TOTAL_CRIME": 82836
+    },
+    {
+        "level_0": 22,
+        "STATE": "JAMMU AND KASHMIR",
+        "TOTAL_CRIME": 60168
+    },
+    {
+        "level_0": 23,
+        "STATE": "NAGALAND",
+        "TOTAL_CRIME": 50580
+    },
+    {
+        "level_0": 24,
+        "STATE": "HIMACHAL PRADESH",
+        "TOTAL_CRIME": 22968
+    },
+    {
+        "level_0": 25,
+        "STATE": "DADRA AND NAGAR HAVELI",
+        "TOTAL_CRIME": 21924
+    },
+    {
+        "level_0": 26,
+        "STATE": "SIKKIM",
+        "TOTAL_CRIME": 7440
+    },
+    {
+        "level_0": 27,
+        "STATE": "DAMAN AND DIU",
+        "TOTAL_CRIME": 7044
+    },
+    {
+        "level_0": 28,
+        "STATE": "CHANDIGARH",
+        "TOTAL_CRIME": 5352
+    },
+    {
+        "level_0": 29,
+        "STATE": "ARUNACHAL PRADESH",
+        "TOTAL_CRIME": 4812
+    },
+    {
+        "level_0": 30,
+        "STATE": "MANIPUR",
+        "TOTAL_CRIME": 4392
+    },
+    {
+        "level_0": 31,
+        "STATE": "MEGHALAYA",
+        "TOTAL_CRIME": 4320
+    },
+    {
+        "level_0": 32,
+        "STATE": "GOA",
+        "TOTAL_CRIME": 4200
+    },
+    {
+        "level_0": 33,
+        "STATE": "MIZORAM",
+        "TOTAL_CRIME": 2832
+    },
+    {
+        "level_0": 34,
+        "STATE": "ANDAMAN AND NICOBAR ISLANDS",
+        "TOTAL_CRIME": 1884
+    },
+    {
+        "level_0": 35,
+        "STATE": "PUDUCHERRY",
+        "TOTAL_CRIME": 1812
+    },
+    {
+        "level_0": 36,
+        "STATE": "LAKSHADWEEP",
+        "TOTAL_CRIME": 48
+    }
+]

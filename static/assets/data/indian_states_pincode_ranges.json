@@ -1,0 +1,182 @@
+[
+    {
+        "pincode_start": 500001,
+        "pincode_end": 534999,
+        "stateName": "ANDHRA PRADESH"
+    },
+    {
+        "pincode_start": 791001,
+        "pincode_end": 792999,
+        "stateName": "ARUNACHAL PRADESH"
+    },
+    {
+        "pincode_start": 781001,
+        "pincode_end": 788999,
+        "stateName": "ASSAM"
+    },
+    {
+        "pincode_start": 800001,
+        "pincode_end": 854999,
+        "stateName": "BIHAR"
+    },
+    {
+        "pincode_start": 160001,
+        "pincode_end": 160036,
+        "stateName": "CHANDIGARH"
+    },
+    {
+        "pincode_start": 490001,
+        "pincode_end": 497999,
+        "stateName": "CHHATTISGARH"
+    },
+    {
+        "pincode_start": 110001,
+        "pincode_end": 110099,
+        "stateName": "DELHI"
+    },
+    {
+        "pincode_start": 403001,
+        "pincode_end": 403999,
+        "stateName": "GOA"
+    },
+    {
+        "pincode_start": 360001,
+        "pincode_end": 396999,
+        "stateName": "GUJARAT"
+    },
+    {
+        "pincode_start": 121001,
+        "pincode_end": 136999,
+        "stateName": "HARYANA"
+    },
+    {
+        "pincode_start": 171001,
+        "pincode_end": 177999,
+        "stateName": "HIMACHAL PRADESH"
+    },
+    {
+        "pincode_start": 180001,
+        "pincode_end": 194999,
+        "stateName": "JAMMU & KASHMIR"
+    },
+    {
+        "pincode_start": 815001,
+        "pincode_end": 834999,
+        "stateName": "JHARKHAND"
+    },
+    {
+        "pincode_start": 560001,
+        "pincode_end": 577999,
+        "stateName": "KARNATAKA"
+    },
+    {
+        "pincode_start": 670001,
+        "pincode_end": 695999,
+        "stateName": "KERALA"
+    },
+    {
+        "pincode_start": 450001,
+        "pincode_end": 488999,
+        "stateName": "MADHYA PRADESH"
+    },
+    {
+        "pincode_start": 400001,
+        "pincode_end": 444999,
+        "stateName": "MAHARASHTRA"
+    },
+    {
+        "pincode_start": 795001,
+        "pincode_end": 795159,
+        "stateName": "MANIPUR"
+    },
+    {
+        "pincode_start": 793001,
+        "pincode_end": 794999,
+        "stateName": "MEGHALAYA"
+    },
+    {
+        "pincode_start": 796001,
+        "pincode_end": 796999,
+        "stateName": "MIZORAM"
+    },
+    {
+        "pincode_start": 797001,
+        "pincode_end": 798999,
+        "stateName": "NAGALAND"
+    },
+    {
+        "pincode_start": 751001,
+        "pincode_end": 770017,
+        "stateName": "ODISHA"
+    },
+    {
+        "pincode_start": 140001,
+        "pincode_end": 160999,
+        "stateName": "PUNJAB"
+    },
+    {
+        "pincode_start": 300001,
+        "pincode_end": 349999,
+        "stateName": "RAJASTHAN"
+    },
+    {
+        "pincode_start": 737101,
+        "pincode_end": 737139,
+        "stateName": "SIKKIM"
+    },
+    {
+        "pincode_start": 600001,
+        "pincode_end": 643999,
+        "stateName": "TAMIL NADU"
+    },
+    {
+        "pincode_start": 500001,
+        "pincode_end": 509999,
+        "stateName": "TELANGANA"
+    },
+    {
+        "pincode_start": 799001,
+        "pincode_end": 799289,
+        "stateName": "TRIPURA"
+    },
+    {
+        "pincode_start": 200001,
+        "pincode_end": 285999,
+        "stateName": "UTTAR PRADESH"
+    },
+    {
+        "pincode_start": 246001,
+        "pincode_end": 263999,
+        "stateName": "UTTARAKHAND"
+    },
+    {
+        "pincode_start": 700001,
+        "pincode_end": 743999,
+        "stateName": "WEST BENGAL"
+    },
+    {
+        "pincode_start": 744101,
+        "pincode_end": 744304,
+        "stateName": "ANDAMAN & NICOBAR ISLANDS"
+    },
+    {
+        "pincode_start": 396230,
+        "pincode_end": 396240,
+        "stateName": "DADRA & NAGAR HAVELI"
+    },
+    {
+        "pincode_start": 396210,
+        "pincode_end": 396220,
+        "stateName": "DAMAN AND DIU"
+    },
+    {
+        "pincode_start": 682001,
+        "pincode_end": 682559,
+        "stateName": "LAKSHADWEEP"
+    },
+    {
+        "pincode_start": 605001,
+        "pincode_end": 609999,
+        "stateName": "PUDUCHERRY"
+    }
+]

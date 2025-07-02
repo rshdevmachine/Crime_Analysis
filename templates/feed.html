@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Document</title>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="{{url_for('static',filename='assets/css/neumorphism.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='assets/css/feed.css')}}">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/7bdcd846e8.js" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+
+  <!-- Icons -->
+  <script src="https://cdn.lordicon.com/libs/frhvbuzj/lord-icon-2.0.2.js"></script>
+
+  <!-- Clock -->
+  <script>
+    function startTime() {
+      var time = new Date();
+      document.getElementById('txt').innerHTML = time.toLocaleString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      });
+    }
+  </script>
+
+  <!-- Header/Footer JS -->
+  <script type="module" src="{{url_for('static',filename='assets/javascript/header-footer.js')}}"></script>
+
+  <!-- Feed Parser -->
+  <script>
+    async function loadRSSFeed(targetId, feedUrl) {
+      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+      try {
+        const res = await fetch(api);
+        const data = await res.json();
+        const list = document.getElementById(targetId);
+        list.innerHTML = '';
+        data.items.slice(0, 5).forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a>`;
+          li.className = "mb-2";
+          list.appendChild(li);
+        });
+      } catch (err) {
+        document.getElementById(targetId).innerHTML = "<p class='text-danger'>Failed to load feed.</p>";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadRSSFeed("crime-feed-list", "https://www.indiatoday.in/rss/1206578");
+      loadRSSFeed("top-feed-list", "https://feeds.bbci.co.uk/news/world/rss.xml");
+    });
+  </script>
+  <style>
+    .card-title {
+      color: white !important;
+    }
+
+    #crime-feed-list li a {
+      color: white !important;
+      font-weight: regular;
+    }
+
+    #crime-feed-list li a:hover {
+      color: #00ffea !important;
+    }
+  </style>
+
+</head>
+
+<body onload="startTime()">
+  <my-header></my-header>
+
+  <div class="container-fluid px-5">
+    <div class="row mb-4"></div>
+
+    <div class="row gx-5">
+      <!-- Left Column: Static -->
+      <div class="col-md-7 mb-4">
+        <div class="card bg-primary border-light shadow-soft p-4">
+          <h3 class="h5 card-title text-center mb-3" style="color: white; font-weight: 1000;">Crime News</h3>
+          <div class="p-3 text-dark">
+            <ul id="crime-feed-list" class="list-unstyled"></ul>
+          </div>
+        </div>
+
+        <!-- NewsData.io Live Feed Moved Below Crime News -->
+        <div class="card bg-primary border-light shadow-soft p-4 mt-4">
+          <h3 class="h5 card-title text-center mb-3" style="color: white; font-weight: 1000;">Live Crime News</h3>
+          <div id="live-news-container" class="row mt-3"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: YouTube Videos -->
+      <div class="col-md-5 mb-4">
+        <div class="card bg-primary border-light shadow-soft px-4 pt-4">
+          <h3 class="h5 card-title text-danger">Live</h3>
+          <div class="fw-block text-dark">
+            <!-- First YouTube Iframe -->
+            <div class="embed-responsive embed-responsive-16by9 mb-4" style="border-radius: 10px; overflow: hidden;">
+              <iframe width="100%" height="180" src="https://www.youtube.com/embed/E08VPwmY3eA?si=JjvQkOa4Wsub_nTc"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <!-- Second YouTube Iframe -->
+            <!-- Second YouTube Iframe (Updated Link) -->
+            <div class="embed-responsive embed-responsive-16by9 mb-4" style="border-radius: 10px; overflow: hidden;">
+              <iframe width="100%" height="162" src="https://www.youtube.com/embed/wZvqg78SNLo?si=b-2BLofl9EP5ZSg0"
+                title="Second Video" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+
+            <!-- Third YouTube Iframe (Updated Link) -->
+            <div class="embed-responsive embed-responsive-16by9 mb-4" style="border-radius: 10px; overflow: hidden;">
+              <iframe width="100%" height="180" src="https://www.youtube.com/embed/iWMB9PJb1CA?si=x7tvgfFTGuZ5M3jv"
+                title="Third Video" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+
+            <!-- Fourth YouTube Iframe -->
+
+            <div class="embed-responsive embed-responsive-16by9"
+              style="border-radius: 10px; overflow: hidden; margin-bottom: 1rem;">
+              <iframe width="100%" height="180" src="https://www.youtube.com/embed/Ns0FwvPMoxs?si=lQnGcTE3J84OM0ra"
+                title="Fourth Video" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <!-- Fifth YouTube Iframe-->
+            <div class="embed-responsive embed-responsive-16by9"
+              style="border-radius: 10px; overflow: hidden; margin-bottom: 1rem;">
+              <iframe width="100%" height="180" src="https://www.youtube.com/embed/1ZF0BN_mjbA?si=YXkfe18-bCL4ez30"
+                title="Fourth Video" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="row">
+    <div class="col-12">
+      <my-footer></my-footer>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const API_URL = 'https://newsdata.io/api/1/latest?apikey=pub_2b868e9bcbb44b64873242d57ebdb052&q=crime&country=in&language=en&category=crime&timezone=Asia/Kolkata';
+
+    async function loadLiveCrimeNews() {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        const liveNewsContainer = document.getElementById('live-news-container');
+
+        if (data.status !== "success" || !data.results || data.results.length === 0) {
+          liveNewsContainer.innerHTML = `<p class="text-danger">No crime news found at the moment.</p>`;
+          return;
+        }
+
+        const articles = data.results.slice(0, 6);
+        const leftColumn = document.createElement('div');
+        leftColumn.className = 'col-md-6';
+        const rightColumn = document.createElement('div');
+        rightColumn.className = 'col-md-6';
+
+        articles.forEach((article, index) => {
+          const imageUrl = article.image_url || 'https://via.placeholder.com/400x200?text=No+Image';
+          const articleHTML = `
+            <div style="margin-bottom: 24px; border-bottom: 1px solid #ccc; padding-bottom: 12px;">
+              <img src="${imageUrl}" alt="News Image" style="width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px;">
+              <h6 style="margin-top: 10px;">${article.title}</h6>
+              <p style="font-size: 0.9rem;">${article.description || ''}</p>
+              <a href="${article.link}" target="_blank" style="font-size: 0.85rem; color: #007BFF;">Read Full Article</a>
+            </div>
+          `;
+          (index % 2 === 0 ? leftColumn : rightColumn).innerHTML += articleHTML;
+        });
+
+        liveNewsContainer.innerHTML = '';
+        liveNewsContainer.appendChild(leftColumn);
+        liveNewsContainer.appendChild(rightColumn);
+
+      } catch (error) {
+        document.getElementById('live-news-container').innerHTML = `<p class="text-danger">Failed to load live crime news.</p>`;
+        console.error("NewsData.io error:", error);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadLiveCrimeNews();
+    });
+  </script>
+
+</body>
+
+</html>

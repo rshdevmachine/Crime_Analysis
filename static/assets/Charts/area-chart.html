@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ZingSoft Demo</title>
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <style>
+    html,
+    body,
+    #myChart {
+      width: 100%;
+      height: 100%;
+
+    }
+
+    .zc-ref {
+      display: none;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/"></a></div>
+  <script>
+  /* -------------------------------------------------------------- *
+   * 1.  Dataset path                                               *
+   * -------------------------------------------------------------- */
+  const s = "/static/assets/data/Processed_CrimesOnWomenData_FINAL.json";
+
+  /* -------------------------------------------------------------- *
+   * 2.  Original XHR loader                                        *
+   * -------------------------------------------------------------- */
+  function readTextFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function () {
+      if (rawFile.readyState === 4 && rawFile.status == "200") {
+        callback(rawFile.responseText);
+      }
+    };
+    rawFile.send(null);
+  }
+
+  /* -------------------------------------------------------------- *
+   * 3.  Load & build chart                                         *
+   * -------------------------------------------------------------- */
+  readTextFile(s, function (text) {
+    const data            = JSON.parse(text);
+    const obj             = JSON.parse(localStorage.getItem("testObject"));
+    const state_arr       = obj.state;
+    const year_arr        = obj.year;
+    const crime_types     = obj.crime_type;            // array!
+    const arr             = [];                        // flattened values
+    let   globalMax       = 0;                         // track max for Y-axis
+
+    /* --- Gather totals per (state,year) ------------------------- */
+    for (let i = 0; i < state_arr.length; i++) {
+      for (let j = 0; j < year_arr.length; j++) {
+        let total = 0;
+
+        data.forEach(rec => {
+          if (rec.STATE === state_arr[i] && rec.YEAR == year_arr[j]) {
+            crime_types.forEach(cr => {
+              const v = Number(rec[cr]) || 0;
+              total += v;
+            });
+          }
+        });
+
+        arr.push(total);
+        if (total > globalMax) globalMax = total;
+      }
+    }
+
+    /* --- Build ZingChart series array --------------------------- */
+    const series_new = [];
+    let c = 0;
+    for (let i = 0; i < state_arr.length; i++) {
+      series_new.push({
+        values : arr.slice(c, c + year_arr.length),
+        text   : state_arr[i] + " – Total Crime"
+      });
+      c += year_arr.length;
+    }
+
+    /* --- Compute nice Y-axis max & step ------------------------- */
+    function niceRound(x, step) {
+      return Math.ceil(x / step) * step;
+    }
+    const step   = Math.pow(10, Math.floor(Math.log10(globalMax)) - 1) || 1;
+    const ymax   = niceRound(globalMax, step);
+
+    /* ------------------------------------------------------------ *
+     * 4.  ZingChart config                                         *
+     * ------------------------------------------------------------ */
+    ZC.LICENSE = [
+      "569d52cefae586f634c54f86dc99e6a9",
+      "b55b025e438fa8a98e32482b5f768ff5"
+    ];
+
+    const myConfig = {
+      globals : { "font-family": "Roboto" },
+      graphset: [{
+        type : "area",
+        utc  : true,
+
+        title: {
+          y : "15px",
+          text: "Crime Intensity Metrics (Total Crime)",
+          "font-color": "#05636c",
+          "font-size" : "24px",
+          "adjust-layout": true
+        },
+
+        plotarea : { "margin-top":"10%", "margin-right":"dynamic",
+                     "margin-bottom":"dynamic", "margin-left":"dynamic" },
+
+        "scale-x": {
+          label : { text:"Year", "font-size":"14px" },
+          item  : { "font-color":"#05636c" },
+          labels: year_arr
+        },
+
+        "scale-y": {
+          label : { text:"Cases Registered", "font-size":"14px" },
+          values: `0:${ymax}:${step}`,
+          guide : { "line-width":"0px", alpha:0.2, "line-style":"dashed" },
+          item  : { "font-color":"#05636c" }
+        },
+
+        plot : {
+          "line-width":2,
+          marker:{ size:1, visible:false },
+          tooltip:{
+            "font-family":"Roboto",
+            "font-size":15,
+            text:"%v Total Crimes – %t",
+            "border-radius":5,
+            padding:10
+          }
+        },
+
+        series: series_new
+      }]
+    };
+
+    zingchart.render({
+      id   : "myChart",
+      data : myConfig,
+      height: "100%",
+      width : "100%"
+    });
+  });
+</script>
+
+</body>
+
+</html>
